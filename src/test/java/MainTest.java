@@ -39,7 +39,7 @@ class MainTest {
         String input = "CreateDepartment 1001 Technology 1000000\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         main.processScannerCommand(new Scanner(System.in));
-        verify(departmentService).createDepartament(eq(new Department("1001", "Technology", 1000000)));
+        verify(departmentService).createDepartment(eq(new Department("1001", "Technology", 1000000)));
     }
 
     @Test
@@ -76,7 +76,7 @@ class MainTest {
         String input = "ShowDepartment 1001\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         main.processScannerCommand(new Scanner(System.in));
-        verify(departmentService).showDepartamentById(eq("1001"));
+        verify(departmentService).showDepartmentById(eq("1001"));
     }
 
     @Test

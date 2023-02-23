@@ -14,7 +14,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void createDepartament(Department department) {
+    public void createDepartment(Department department) {
         String departmentID = department.getDepartmentID();
         if (departmentRepository.findById(departmentID) != null) {
             System.out.printf("Department with %s already exists!%n", departmentID);
@@ -24,7 +24,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void showDepartamentById(String departmentID) {
+    public void showDepartmentById(String departmentID) {
         Department department = departmentRepository.findById(departmentID);
         if (department == null) {
             System.out.printf("Department with ID %s does not exist!%n", departmentID);

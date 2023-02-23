@@ -35,7 +35,7 @@ public class Main {
                 String departmentName = tokens[2];
                 float yearlyBudget = Float.parseFloat(tokens[3]);
                 Department department = new Department(departmentID, departmentName, yearlyBudget);
-                departmentService.createDepartament(department);
+                departmentService.createDepartment(department);
             } else if ("HireEmployee".equals(command)) {
                 String employeeID = tokens[1];
                 String firstName = tokens[2];
@@ -56,7 +56,7 @@ public class Main {
                 employeeService.showEmployeeById(employeeID);
             } else if ("ShowDepartment".equals(command)) {
                 String departmentID = tokens[1];
-                departmentService.showDepartamentById(departmentID);
+                departmentService.showDepartmentById(departmentID);
             } else if ("End".equals(command)) {
                 break;
             } else {

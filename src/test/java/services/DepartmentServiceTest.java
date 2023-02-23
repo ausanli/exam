@@ -25,7 +25,7 @@ public class DepartmentServiceTest {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(department);
         DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
-        departmentService.createDepartament(department);
+        departmentService.createDepartment(department);
 
         assertEquals("Department with 1001 already exists!" + System.lineSeparator(), outContent.toString());
     }
@@ -38,7 +38,7 @@ public class DepartmentServiceTest {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(null);
         DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
-        departmentService.createDepartament(department);
+        departmentService.createDepartment(department);
 
         verify(departmentRepository).save(eq(department));
     }
@@ -51,7 +51,7 @@ public class DepartmentServiceTest {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(null);
         DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
-        departmentService.showDepartamentById("101");
+        departmentService.showDepartmentById("101");
 
         assertEquals("Department with ID 101 does not exist!" + System.lineSeparator(), outContent.toString());
     }
@@ -69,7 +69,7 @@ public class DepartmentServiceTest {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(department);
         DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
-        departmentService.showDepartamentById("1001");
+        departmentService.showDepartmentById("1001");
 
         assertEquals("Department: Technology" + System.lineSeparator() +
                 "ID: 1001" + System.lineSeparator() +
