@@ -35,6 +35,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         double leftOverBudget = department.getYearlyBudget() - sumOfAllSalariesInDepartment;
         String employesString = department.getEmployees().stream().map(Employee::getEmployeeID).collect(Collectors.joining(", "));
 
-        System.out.printf("Department: %s%n" + "ID: %s%n" + "Budget: %.2f$/year.%n" + "Not allocated: %.2f%n" + "Employees: %s%n", department.getDepartmentName(), department.getDepartmentID(), department.getYearlyBudget(), leftOverBudget, employesString);
+        System.out.printf("Department: %s%n" +
+                        "ID: %s%n" +
+                        "Budget: %.2f$/year.%n" +
+                        "Not allocated: %.2f%n" +
+                        "Employees: %s%n", department.getDepartmentName(),
+                department.getDepartmentID(), department.getYearlyBudget(), leftOverBudget, employesString);
     }
 }
