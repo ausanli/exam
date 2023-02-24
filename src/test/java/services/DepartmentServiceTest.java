@@ -24,7 +24,8 @@ public class DepartmentServiceTest {
 
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(department);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.createDepartment(department);
 
         assertEquals("Department with 1001 already exists!" + System.lineSeparator(), outContent.toString());
@@ -37,7 +38,8 @@ public class DepartmentServiceTest {
         System.setOut(new PrintStream(outContent));
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(null);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.createDepartment(department);
 
         verify(departmentRepository).save(eq(department));
@@ -50,7 +52,8 @@ public class DepartmentServiceTest {
 
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(null);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.showDepartmentById("101");
 
         assertEquals("Department with ID 101 does not exist!" + System.lineSeparator(), outContent.toString());
@@ -68,7 +71,8 @@ public class DepartmentServiceTest {
 
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(department);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.showDepartmentById("1001");
 
         assertEquals("Department: Technology" + System.lineSeparator() +
@@ -86,7 +90,8 @@ public class DepartmentServiceTest {
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         Department department = new Department("1001", "Technology", 1000000);
         when(departmentRepository.findById(eq("1001"))).thenReturn(department);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.updateDepartmentById("1001", "Technology", 1000000);
 
         verify(departmentRepository).deleteById(eq("1001"));
@@ -100,7 +105,8 @@ public class DepartmentServiceTest {
 
         DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
         when(departmentRepository.findById(anyString())).thenReturn(null);
-        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        LoggerService loggerService = System.out::print;
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository, loggerService);
         departmentService.updateDepartmentById("1001", "Technology", 1000000);
 
         assertEquals("No department with ID 1001 exists!" + System.lineSeparator(), outContent.toString());

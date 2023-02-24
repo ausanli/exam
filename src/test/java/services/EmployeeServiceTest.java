@@ -24,8 +24,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         Employee employee = new Employee("10001", "John", "Doe", 120000);
 
         when(employeeRepository.findById(anyString())).thenReturn(employee);
@@ -39,8 +39,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         Employee employee = new Employee("10001", "John", "Doe", 120000);
 
         when(employeeRepository.findById(anyString())).thenReturn(null);
@@ -54,8 +54,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.assignDepartmentByIds("101", "1001");
         when(employeeRepository.findById(anyString())).thenReturn(null);
         assertEquals("Employee with ID 101 doesn't exist!"+System.lineSeparator(), outContent.toString());
@@ -67,8 +67,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         Employee employee = new Employee("101", "John", "Doe", 120000);
         when(employeeRepository.findById(anyString())).thenReturn(employee);
         when(departmentRepository.findById(anyString())).thenReturn(null);
@@ -82,8 +82,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         Employee employee = new Employee("101", "John", "Doe", 120000);
         when(employeeRepository.findById(anyString())).thenReturn(employee);
 
@@ -101,8 +101,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         Employee employee = new Employee("101", "John", "Doe", 100);
         when(employeeRepository.findById(anyString())).thenReturn(employee);
 
@@ -121,8 +121,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.promoteEmployee("101", -5);
 
         assertEquals("The promotion percentage needs to be a positive floating number!" + System.lineSeparator(), outContent.toString());
@@ -136,8 +136,8 @@ public class EmployeeServiceTest {
         System.setOut(new PrintStream(outContent));
 
         when(employeeRepository.findById(anyString())).thenReturn(null);
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.promoteEmployee("101", 20);
 
         assertEquals("Employee with ID 101 doesn't exist!" + System.lineSeparator(), outContent.toString());
@@ -150,8 +150,8 @@ public class EmployeeServiceTest {
 
         Employee employee = new Employee("101", "John", "Doe", 100);
         when(employeeRepository.findById(anyString())).thenReturn(employee);
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.promoteEmployee("101", 50);
 
         assertEquals(150, employee.getYearlySalary());
@@ -171,8 +171,8 @@ public class EmployeeServiceTest {
         department.assignEmployee(employee);
 
         when(departmentRepository.findAll()).thenReturn(List.of(department));
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.promoteEmployee("101", 50);
 
         assertEquals(100, employee.getYearlySalary());
@@ -186,7 +186,8 @@ public class EmployeeServiceTest {
         EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.showEmployeeById("101");
         assertEquals("Employee with ID 101 doesn't exist!" + System.lineSeparator(), outContent.toString());
     }
@@ -200,8 +201,8 @@ public class EmployeeServiceTest {
 
         Employee employee = new Employee("101", "John", "Doe", 100);
         when(employeeRepository.findById(anyString())).thenReturn(employee);
-
-        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository);
+        LoggerService loggerService = System.out::print;
+        EmployeeServiceImpl employeeService = new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService);
         employeeService.showEmployeeById("101");
         assertEquals("Employee ID: 101, name: John Doe, Department: N/A, Salary: 100.00" + System.lineSeparator(), outContent.toString());
     }

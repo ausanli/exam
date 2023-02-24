@@ -2,11 +2,13 @@ import domain.Department;
 import domain.Employee;
 import repositories.DepartmentRepository;
 import repositories.EmployeeRepository;
-import services.DepartmentService;
-import services.DepartmentServiceImpl;
-import services.EmployeeService;
-import services.EmployeeServiceImpl;
+import services.*;
 
+import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
@@ -18,11 +20,17 @@ public class Main {
         this.employeeService = employeeService;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DepartmentRepository departmentRepository = new DepartmentRepository();
         EmployeeRepository employeeRepository = new EmployeeRepository();
-        Main main = new Main(new DepartmentServiceImpl(departmentRepository), new EmployeeServiceImpl(departmentRepository, employeeRepository));
+        String timestamp = ZonedDateTime.ofInstant(Instant.now(), ZoneId.of("Europe/Sofia"))
+                .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+
+        String fileName = String.format("EmployeeSystem_OUT_%s.txt", timestamp);
+        LoggerServiceImpl loggerService = new LoggerServiceImpl(fileName);
+        Main main = new Main(new DepartmentServiceImpl(departmentRepository, loggerService), new EmployeeServiceImpl(departmentRepository, employeeRepository, loggerService));
         main.processScannerCommand(new Scanner(System.in));
+        loggerService.close();
     }
 
     protected void processScannerCommand(Scanner scanner) {
