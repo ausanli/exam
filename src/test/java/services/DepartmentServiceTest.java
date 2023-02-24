@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 public class DepartmentServiceTest {
     @Test
-    void testCreateDepartamentWhenExits() {
+    void testCreateDepartmentWhenExits() {
         Department department = new Department("1001", "Technology", 1000000);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -31,7 +31,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    void testCreateDepartamentWhenDoesntExits() {
+    void testCreateDepartmentWhenDoesntExit() {
         Department department = new Department("1001", "Technology", 1000000);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -44,7 +44,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    void testShowDepartamentByIdWhenDoesntExits() {
+    void testShowDepartmentByIdWhenDoesntExit() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
@@ -57,7 +57,7 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    void testShowDepartamentByIdWhenExits() {
+    void testShowDepartmentByIdWhenExits() {
         Department department = new Department("1001", "Technology", 1000000);
         Employee employee1 = new Employee("10001", "John", "Doe", 120000);
         Employee employee2 = new Employee("10002", "Pesho", "Ivanov", 120000);
@@ -76,5 +76,33 @@ public class DepartmentServiceTest {
                 "Budget: 1000000.00$/year." + System.lineSeparator() +
                 "Not allocated: 760000.00" + System.lineSeparator() +
                 "Employees: 10001, 10002" + System.lineSeparator(), outContent.toString());
+    }
+
+    @Test
+    void testUpdateDepartmentWhenFound() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
+        Department department = new Department("1001", "Technology", 1000000);
+        when(departmentRepository.findById(eq("1001"))).thenReturn(department);
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        departmentService.updateDepartmentById("1001", "Technology", 1000000);
+
+        verify(departmentRepository).deleteById(eq("1001"));
+        verify(departmentRepository).save(eq(new Department("1001", "Technology", 1000000)));
+    }
+
+    @Test
+    void testUpdateDepartmentWhenNotFound() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        DepartmentRepository departmentRepository = mock(DepartmentRepository.class);
+        when(departmentRepository.findById(anyString())).thenReturn(null);
+        DepartmentServiceImpl departmentService = new DepartmentServiceImpl(departmentRepository);
+        departmentService.updateDepartmentById("1001", "Technology", 1000000);
+
+        assertEquals("No department with ID 1001 exists!" + System.lineSeparator(), outContent.toString());
     }
 }

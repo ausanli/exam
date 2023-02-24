@@ -26,8 +26,8 @@ public class DepartmentRepository implements Repository<String, Department> {
     }
 
     @Override
-    public void save(Department employee) {
-        String departmentID = employee.getDepartmentID();
-        storage.put(departmentID, employee);
+    public void save(Department department) {
+        String departmentID = department.getDepartmentID();
+        storage.put(departmentID, department);
     }
 }

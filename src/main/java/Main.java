@@ -57,6 +57,11 @@ public class Main {
             } else if ("ShowDepartment".equals(command)) {
                 String departmentID = tokens[1];
                 departmentService.showDepartmentById(departmentID);
+            } else if ("UpdateDepartment".equals(command)) {
+                String departmentID = tokens[1];
+                String name = tokens[2];
+                float budget = Float.parseFloat(tokens[3]);
+                departmentService.updateDepartmentById(departmentID, name, budget);
             } else if ("End".equals(command)) {
                 break;
             } else {

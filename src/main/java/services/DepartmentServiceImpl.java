@@ -42,4 +42,16 @@ public class DepartmentServiceImpl implements DepartmentService {
                         "Employees: %s%n", department.getDepartmentName(),
                 department.getDepartmentID(), department.getYearlyBudget(), leftOverBudget, employesString);
     }
+
+    @Override
+    public void updateDepartmentById(String departmentID, String name, float budget) {
+        Department department = departmentRepository.findById(departmentID);
+        if (department == null) {
+            System.out.printf("No department with ID %s exists!%n", departmentID);
+            return;
+        }
+        departmentRepository.deleteById(departmentID);
+        Department newDepartment = new Department(departmentID, name, budget);
+        departmentRepository.save(newDepartment);
+    }
 }

@@ -57,6 +57,7 @@ class MainTest {
         main.processScannerCommand(new Scanner(System.in));
         verify(employeeService).assignDepartmentByIds(eq("10001"), eq("1001"));
     }
+
     @Test
     void testWhenPromoteEmployeeCommandPassed() {
         String input = "PromoteEmployee 10002 20\n";
@@ -64,6 +65,7 @@ class MainTest {
         main.processScannerCommand(new Scanner(System.in));
         verify(employeeService).promoteEmployee(eq("10002"), eq(20.0f));
     }
+
     @Test
     void testWhenShowEmployeeCommandPassed() {
         String input = "ShowEmployee 100\n";
@@ -71,12 +73,21 @@ class MainTest {
         main.processScannerCommand(new Scanner(System.in));
         verify(employeeService).showEmployeeById(eq("100"));
     }
+
     @Test
     void testWhenShowDepartmentCommandPassed() {
         String input = "ShowDepartment 1001\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         main.processScannerCommand(new Scanner(System.in));
         verify(departmentService).showDepartmentById(eq("1001"));
+    }
+
+    @Test
+    void testWhenUpdateDepartmentCommandPassed() {
+        String input = "UpdateDepartment 1001 Tech 1000\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        main.processScannerCommand(new Scanner(System.in));
+        verify(departmentService).updateDepartmentById(eq("1001"), eq("Tech"), eq(1000.0f));
     }
 
     @Test

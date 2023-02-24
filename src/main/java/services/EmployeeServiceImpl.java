@@ -63,9 +63,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Department> departments = departmentRepository.findAll();
 
         if (!departments.isEmpty()) {
-            Optional<Department> departamentDoesntAllowPromote = departments.stream().filter(d -> d.getEmployees().contains(employee)).filter(d -> d.getYearlyBudget() < newEmployeeSalary).findFirst();
-            if (departamentDoesntAllowPromote.isPresent()) {
-                System.out.printf("Department %s's budget does not allow for such a high promotion!%n", departamentDoesntAllowPromote.get().getDepartmentID());
+            Optional<Department> departmentDoesntAllowPromote = departments.stream().filter(d -> d.getEmployees().contains(employee)).filter(d -> d.getYearlyBudget() < newEmployeeSalary).findFirst();
+            if (departmentDoesntAllowPromote.isPresent()) {
+                System.out.printf("Department %s's budget does not allow for such a high promotion!%n", departmentDoesntAllowPromote.get().getDepartmentID());
                 return;
             }
         }
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             System.out.printf("Employee with ID %s doesn't exist!%n", employeeID);
             return;
         }
-        final String employeeDepartamentID = departmentRepository.findAll().stream().filter(department -> department.getEmployees().contains(employee)).map(Department::getDepartmentID).findFirst().orElse("N/A");
-        System.out.printf("Employee ID: %s, name: %s %s, Department: %s, Salary: %.2f%n", employee.getEmployeeID(), employee.getFirstName(), employee.getLastName(), employeeDepartamentID, employee.getYearlySalary());
+        final String employeeDepartmentID = departmentRepository.findAll().stream().filter(department -> department.getEmployees().contains(employee)).map(Department::getDepartmentID).findFirst().orElse("N/A");
+        System.out.printf("Employee ID: %s, name: %s %s, Department: %s, Salary: %.2f%n", employee.getEmployeeID(), employee.getFirstName(), employee.getLastName(), employeeDepartmentID, employee.getYearlySalary());
     }
 }
